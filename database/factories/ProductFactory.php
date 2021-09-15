@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Category;
 use App\Models\Product;
 
 class ProductFactory extends Factory
@@ -23,7 +24,8 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(4),
+            'category_id' => Category::factory(),
+            'name' => $this->faker->name,
             'description' => $this->faker->text,
             'slug' => $this->faker->slug,
         ];

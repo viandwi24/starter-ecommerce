@@ -1,11 +1,14 @@
 created:
+    - database/factories/CategoryFactory.php
     - database/factories/ProductFactory.php
     - database/factories/ProductImageFactory.php
     - database/factories/TagFactory.php
-    - database/migrations/2021_09_15_143953_create_products_table.php
-    - database/migrations/2021_09_15_143954_create_product_images_table.php
-    - database/migrations/2021_09_15_143955_create_tags_table.php
-    - database/migrations/2021_09_15_143956_create_product_tag_table.php
+    - database/migrations/2021_09_15_195626_create_categories_table.php
+    - database/migrations/2021_09_15_195627_create_products_table.php
+    - database/migrations/2021_09_15_195628_create_product_images_table.php
+    - database/migrations/2021_09_15_195629_create_tags_table.php
+    - database/migrations/2021_09_15_195630_create_product_tag_table.php
+    - app/Models/Category.php
     - app/Models/Product.php
     - app/Models/ProductImage.php
     - app/Models/Tag.php
@@ -13,6 +16,7 @@ created:
     - database/seeders/TagSeeder.php
 models:
     User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
-    Product: { title: 'string:400', description: longtext, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsigned nullable', rgt: 'integer unsigned nullable', depth: 'integer unsigned nullable', name: 'string:255', description: 'string:500', slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Product } }
+    Product: { category_id: 'id foreign', name: 'string:400', description: longtext, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag, hasMany: 'ProductImage:images' } }
     ProductImage: { product_id: 'id foreign', path: string }
     Tag: { name: 'string:255', slug: 'string unique', description: 'string:500', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Product } }

@@ -17,7 +17,8 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
+        'category_id',
+        'name',
         'description',
         'slug',
     ];
@@ -29,11 +30,22 @@ class Product extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'category_id' => 'integer',
     ];
 
 
     public function tags()
     {
         return $this->belongsToMany(\App\Models\Tag::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(\App\Models\ProductImage::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class);
     }
 }

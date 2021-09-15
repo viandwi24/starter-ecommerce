@@ -13,14 +13,19 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 400);
+            $table->foreignId('category_id')->constrained();
+            $table->string('name', 400);
             $table->longText('description');
             $table->string('slug')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

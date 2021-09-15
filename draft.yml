@@ -1,15 +1,36 @@
 models:
+  # Category Model
+  Category:
+    parent_id: id foreign:categories nullable
+    lft: integer unsigned nullable
+    rgt: integer unsigned nullable
+    depth: integer unsigned nullable
+    name: string:255
+    description: string:500
+    slug: string unique
+    timestamps: true
+    softDeletes: true
+    relationships:
+      hasMany: Product
+
+  # Product Model
   Product:
-    title: string:400
+    category_id: id foreign
+    name: string:400
     description: longtext
     slug: string unique
     timestamps: true
     softDeletes: true
     relationships:
       belongsToMany: Tag
+      hasMany: ProductImage:images
+
+  # ProductImage Model
   ProductImage:
     product_id: id foreign
     path: string
+
+  # Tag Model
   Tag:
     name: string:255
     slug: string unique
