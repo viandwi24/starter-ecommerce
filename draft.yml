@@ -1,0 +1,19 @@
+models:
+  Product:
+    title: string:400
+    description: longtext
+    slug: string unique
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsToMany: Tag
+  ProductImage:
+    product_id: id foreign
+    path: string
+  Tag:
+    name: string:255
+    slug: string unique
+    description: string:500
+    timestamps: true
+    softDeletes: true
+      belongsToMany: Product
