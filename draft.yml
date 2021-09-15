@@ -16,4 +16,7 @@ models:
     description: string:500
     timestamps: true
     softDeletes: true
+    relationships:
       belongsToMany: Product
+
+seeders: Product, Tag
