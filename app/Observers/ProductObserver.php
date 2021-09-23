@@ -7,6 +7,27 @@ use Illuminate\Support\Facades\File;
 
 class ProductObserver
 {
+    /**
+     *  Listen to the Product on creating event.
+     *
+     * @param  mixed $product
+     * @return void
+     */
+    public function saving(Product $product)
+    {
+        if ($product->slug == '')
+        {
+            $product->slug = generate_slug($product->name);
+        }
+        return $product;
+    }
+
+    /**
+     * Listen to the Product deleted event.
+     *
+     * @param  mixed $product
+     * @return void
+     */
     public function deleted(Product $product)
     {
         if ($product->images)

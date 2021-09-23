@@ -104,8 +104,13 @@ class ProductCrudController extends CrudController
         }
 
         CRUD::field('name');
-        CRUD::field('slug');
         CRUD::field('description')->type('ckeditor');
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
         CRUD::addField([
             'name' => 'previewImages',
             'label' => 'Images',

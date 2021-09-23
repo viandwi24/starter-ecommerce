@@ -62,8 +62,13 @@ class TagCrudController extends CrudController
         CRUD::setValidation(TagRequest::class);
 
         CRUD::field('name');
-        CRUD::field('slug');
         CRUD::field('description');
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

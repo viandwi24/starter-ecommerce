@@ -47,7 +47,12 @@ class CategoryCrudController extends CrudController
         // CRUD::column('depth');
         CRUD::column('name');
         CRUD::column('description');
-        CRUD::column('slug');
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

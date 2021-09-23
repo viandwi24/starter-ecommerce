@@ -28,8 +28,8 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required|min:1|max:400',
             'description' => 'required|min:1',
-            'slug' => 'required|min:1',
-            'category' => 'required|exists:\App\Models\Category,id'
+            'category' => 'required|exists:\App\Models\Category,id',
+            // 'slug' => 'required|min:1',
         ];
     }
 
