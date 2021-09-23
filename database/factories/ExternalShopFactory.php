@@ -4,16 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Category;
+use App\Models\ExternalShop;
 
-class CategoryFactory extends Factory
+class ExternalShopFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = ExternalShop::class;
 
     /**
      * Define the model's default state.
@@ -23,13 +23,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            // 'parent_id' => Category::factory(),
-            // 'lft' => $this->faker->randomNumber(),
-            // 'rgt' => $this->faker->randomNumber(),
-            // 'depth' => $this->faker->randomNumber(),
             'name' => $this->faker->name,
-            'description' => $this->faker->text,
-            'slug' => $this->faker->slug,
+            'link' => $this->faker->regexify('[A-Za-z0-9]{400}'),
         ];
     }
 }

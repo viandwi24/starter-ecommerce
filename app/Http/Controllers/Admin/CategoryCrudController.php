@@ -47,12 +47,7 @@ class CategoryCrudController extends CrudController
         // CRUD::column('depth');
         CRUD::column('name');
         CRUD::column('description');
-        CRUD::addField([
-            'name' => 'slug',
-            'label' => 'Slug (URL)',
-            'type' => 'text',
-            'hint' => 'Will be automatically generated from your title, if left empty.',
-        ]);
+        CRUD::column('slug');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -77,7 +72,12 @@ class CategoryCrudController extends CrudController
         // CRUD::field('depth');
         CRUD::field('name');
         CRUD::field('description');
-        CRUD::field('slug');
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

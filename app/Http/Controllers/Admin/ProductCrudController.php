@@ -47,9 +47,17 @@ class ProductCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        // column
         CRUD::column('name');
         // CRUD::column('description');
-        CRUD::column('slug');
+        // CRUD::column('slug');
+        CRUD::addColumn([
+            'name' => 'sale_price',
+            'label' => 'Sale Price',
+            'type' => 'number',
+            'decimals' => 2,
+            'prefix' => 'Rp ',
+        ]);
         CRUD::column('category')->type('relationship');
         CRUD::column('tags')->type('relationship');
 
@@ -71,7 +79,8 @@ class ProductCrudController extends CrudController
         CRUD::setValidation(ProductRequest::class);
 
         CRUD::field('name');
-        CRUD::field('slug');
+        CRUD::field('category')->type('relationship');
+        CRUD::field('tags')->type('relationship');
         CRUD::field('description')->type('ckeditor');
         CRUD::addField([
             'name' => 'images',
@@ -79,8 +88,43 @@ class ProductCrudController extends CrudController
             'type' => 'multipleImages',
             'upload' => true
         ]);
-        CRUD::field('category')->type('relationship');
-        CRUD::field('tags')->type('relationship');
+        CRUD::addField([
+            'name' => 'sale_price',
+            'label' => 'Sale Price',
+            'type' => 'number',
+            'prefix' => 'Rp',
+            'suffix' => '.00',
+            'default' => 0,
+            'decimals' => 0,
+            'attributes' => [
+                'min' => 0
+            ]
+        ]);
+        CRUD::addField([
+            'name' => 'purchase_price',
+            'label' => 'Purchase Price',
+            'type' => 'number',
+            'prefix' => 'Rp',
+            'suffix' => '.00',
+            'default' => 0,
+            'decimals' => 0,
+            'attributes' => [
+                'min' => 0
+            ]
+        ]);
+        CRUD::field('stock')->type('number')->default(0);
+        CRUD::addField([
+            'name' => 'discounts',
+            'label' => 'Discounts',
+            'type' => 'relationship',
+            'attribute' => 'name'
+        ]);
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -104,13 +148,9 @@ class ProductCrudController extends CrudController
         }
 
         CRUD::field('name');
+        CRUD::field('category')->type('relationship');
+        CRUD::field('tags')->type('relationship');
         CRUD::field('description')->type('ckeditor');
-        CRUD::addField([
-            'name' => 'slug',
-            'label' => 'Slug (URL)',
-            'type' => 'text',
-            'hint' => 'Will be automatically generated from your title, if left empty.',
-        ]);
         CRUD::addField([
             'name' => 'previewImages',
             'label' => 'Images',
@@ -123,8 +163,41 @@ class ProductCrudController extends CrudController
             'type' => 'multipleImages',
             'upload' => true
         ]);
-        CRUD::field('category')->type('relationship');
-        CRUD::field('tags')->type('relationship');
+        CRUD::addField([
+            'name' => 'sale_price',
+            'label' => 'Sale Price',
+            'type' => 'number',
+            'prefix' => 'Rp',
+            'default' => 0,
+            'attributes' => [
+                'step' => 'any',
+                'min' => 0
+            ]
+        ]);
+        CRUD::addField([
+            'name' => 'purchase_price',
+            'label' => 'Purchase Price',
+            'type' => 'number',
+            'prefix' => 'Rp',
+            'default' => 0,
+            'attributes' => [
+                'step' => 'any',
+                'min' => 0
+            ]
+        ]);
+        CRUD::field('stock')->type('number')->default(0);
+        CRUD::addField([
+            'name' => 'discounts',
+            'label' => 'Discounts',
+            'type' => 'relationship',
+            'attribute' => 'name'
+        ]);
+        CRUD::addField([
+            'name' => 'slug',
+            'label' => 'Slug (URL)',
+            'type' => 'text',
+            'hint' => 'Will be automatically generated from your title, if left empty.',
+        ]);
     }
 
     private function handleImageUpload(Request $request)

@@ -21,6 +21,9 @@ class Product extends Model
         'name',
         'description',
         'slug',
+        'purchase_price',
+        'sale_price',
+        'stock',
     ];
 
     /**
@@ -31,6 +34,9 @@ class Product extends Model
     protected $casts = [
         'id' => 'integer',
         'category_id' => 'integer',
+        'purchase_price' => 'decimal:2',
+        'sale_price' => 'decimal:2',
+        'stock' => 'integer',
     ];
 
 
@@ -39,9 +45,19 @@ class Product extends Model
         return $this->belongsToMany(\App\Models\Tag::class);
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(\App\Models\Discount::class);
+    }
+
     public function images()
     {
         return $this->hasMany(\App\Models\ProductImage::class);
+    }
+
+    public function externalShops()
+    {
+        return $this->hasMany(\App\Models\ExternalShop::class);
     }
 
     public function category()

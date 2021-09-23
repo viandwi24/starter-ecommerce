@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\TagRequest;
+use App\Http\Requests\DiscountRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class TagCrudController
+ * Class DiscountCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class TagCrudController extends CrudController
+class DiscountCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -27,9 +27,9 @@ class TagCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Tag::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/tag');
-        CRUD::setEntityNameStrings('tag', 'tags');
+        CRUD::setModel(\App\Models\Discount::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/discount');
+        CRUD::setEntityNameStrings('discount', 'discounts');
     }
 
     /**
@@ -41,8 +41,15 @@ class TagCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name');
-        CRUD::column('description');
-        CRUD::column('slug');
+        CRUD::addColumn([
+            'name' => 'discount',
+            'label' => 'Discount',
+            'suffix' => '%',
+            'type' => 'number',
+            'decimals' => 2,
+        ]);
+        CRUD::column('start_date');
+        CRUD::column('end_date');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -59,15 +66,37 @@ class TagCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TagRequest::class);
+        CRUD::setValidation(DiscountRequest::class);
 
         CRUD::field('name');
-        CRUD::field('description');
         CRUD::addField([
-            'name' => 'slug',
-            'label' => 'Slug (URL)',
-            'type' => 'text',
-            'hint' => 'Will be automatically generated from your title, if left empty.',
+            'name' => 'discount',
+            'label' => 'Discount',
+            'suffix' => '%',
+            'type' => 'number',
+            'decimals' => 2,
+            'default' => 0.00,
+            'attributes' => [
+                'step' => 'any',
+                'min' => 0.00,
+                'max' => 100.00
+            ],
+        ]);
+        CRUD::addField([
+            'name' => 'start_date',
+            'label' => 'start Date',
+            'type' => 'datetime_picker',
+            'datetime_picker_options' => [
+                'format' => 'DD/MM/YYYY HH:mm'
+            ]
+        ]);
+        CRUD::addField([
+            'name' => 'end_date',
+            'label' => 'end Date',
+            'type' => 'datetime_picker',
+            'datetime_picker_options' => [
+                'format' => 'DD/MM/YYYY HH:mm'
+            ]
         ]);
 
         /**

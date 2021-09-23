@@ -13,17 +13,45 @@ models:
     relationships:
       hasMany: Product
 
+  # Discount Model
+  Discount:
+    name: string:255
+    discount: decimal
+    start_date: date
+    end_date: date
+    timestamps: true
+    softDeletes: true
+
   # Product Model
   Product:
     category_id: id foreign
     name: string:400
     description: longtext
     slug: string unique
+    purchase_price: decimal
+    sale_price: decimal
+    stock: integer unsigned
     timestamps: true
     softDeletes: true
     relationships:
-      belongsToMany: Tag
-      hasMany: ProductImage:images
+      belongsToMany: Tag, Discount
+      hasMany: ProductImage:images, ExternalShop
+
+  # ProductAttribute Model
+  ProductAttribute:
+    name: string:255
+    value: string:255
+    timestamps: true
+    softDeletes: true
+
+  # ExternalShop Model
+  ExternalShop:
+    name: string:400
+    link: string:400
+    timestamps: true
+    softDeletes: true
+    relationships:
+      hasMany: Product
 
   # ProductImage Model
   ProductImage:

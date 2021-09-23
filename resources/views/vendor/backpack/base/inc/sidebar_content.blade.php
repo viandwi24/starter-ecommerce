@@ -3,8 +3,10 @@
 <li class="nav-title">Management</li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('category') }}'><i class='nav-icon la la-stamp'></i> Categories</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tag') }}'><i class='nav-icon la la-tags'></i> Tags</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('external-shop') }}'><i class='nav-icon la la-store-alt'></i> External shops</a></li>
+<li class="nav-title">Catalog</li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('discount') }}'><i class='nav-icon la la-percentage'></i> Discounts</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product') }}'><i class='nav-icon la la-boxes'></i> Products</a></li>
-{{-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('product-image') }}'><i class='nav-icon la la-question'></i> Product images</a></li> --}}
 <li class="nav-title">Other</li>
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>
