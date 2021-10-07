@@ -1,0 +1,21 @@
+// vars
+$appName: 'plazacamera';
+
+//
+body {
+    color: theme('colors.black');
+    background-color: theme('colors.white');
+    font-family: 'Nunito', sans-serif;
+}
+main {
+    $navbarHeight: 92px;
+    $footerHeight: 259px;
+    min-height: calc(100vh - (#{$navbarHeight} + #{$footerHeight}));
+}
+.text-xs .fa {
+    font-size: .6rem;
+}
+
+// components
+@import './components/button';
+@import './components/card';

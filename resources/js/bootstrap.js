@@ -10,6 +10,11 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+const csrf = document.head.querySelector('meta[name="csrf-token"]');
+if (csrf) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrf.content;
+}
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

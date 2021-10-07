@@ -15,6 +15,7 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "nagy/laravel-rating": "^2.2",
         "sopamo/laravel-filepond": "^0.6.2"
     },
     "require-dev": {
