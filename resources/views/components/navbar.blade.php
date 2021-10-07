@@ -9,9 +9,10 @@
         [ 'link' => route('home'), 'icon' => 'fa fa-shopping-cart text-xl' ],
     ];
 @endphp
+
 <!-- Navbar -->
-<nav class="navbar">
-    <div class="bg-red-100">
+<nav id="navbar" class="navbar">
+    <div id="navbar-top" class="bg-red-100">
         <x-container>
             <ul class="flex justify-end space-x-3">
                 @foreach ($topMenu as $item)
@@ -24,7 +25,7 @@
             </ul>
         </x-container>
     </div>
-    <div class="bg-red-500">
+    <div id="navbar-bottom" class="bg-red-500">
         <x-container class="flex py-4 text-white">
             <a href="{{ route('home') }}" class="brand self-center text-2xl font-semibold">
                 {{ env('APP_NAME', 'ESHOP') }}
@@ -85,3 +86,44 @@
         </x-container>
     </div>
 </nav>
+
+
+@push('scripts')
+    <script>
+        const navbar = document.querySelector('#navbar');
+        const navbarTop = document.querySelector('#navbar-top');
+        const navbarBottom = document.querySelector('#navbar-bottom');
+        const navbarBaseHeight = navbarTop.offsetHeight;
+        const navbarTopBaseHeight = navbarTop.clientHeight;
+        const offset = 20;
+        const onWindowScroll = function() {
+            const requiredClass = ['fixed', 'w-full', 'z-20', 'top-0', 'left-0']
+            // keep navbarBottom fixed top when scroll down
+            if (window.scrollY > navbarBottom.offsetHeight + offset) {
+                const result = (navbarTopBaseHeight + navbarBottom.clientHeight);
+                if (navbarTop.clientHeight !== result) {
+                    navbarTop.style.height = `${result}px`;
+                }
+                if (!navbarBottom.classList.contains(requiredClass[0])) {
+                    navbarBottom.classList.add(...requiredClass);
+                    navbarBottom.animate([
+                        { transform: 'translateY(-10vh)' },
+                        { transform: 'translateY(0)' },
+                    ], {
+                        duration: 300,
+                        easing: 'ease-out',
+                    });
+                }
+            } else if (window.scrollY < (navbarBottom.offsetHeight * 2) + offset) {
+                navbarTop.style.height = `${navbarTopBaseHeight}px`;
+                navbarBottom.classList.remove(...requiredClass);
+            }
+            // console.log({
+            //     s: window.scrollY ,
+            //     nb: navbarBottom.offsetHeight
+            // })
+        };
+        window.addEventListener('scroll', onWindowScroll);
+        window.addEventListener('DOMContentLoaded', onWindowScroll);
+    </script>
+@endpush
